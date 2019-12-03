@@ -40,19 +40,30 @@
 // Related Topics 栈 字符串
 
 
+import java.util.Map;
 import java.util.Stack;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isValid(String s) {
-        char[] chars = s.toCharArray();
-        Stack stack = new Stack();
-        for (char c: chars) {
-            stack.peek()
-            if (stack.empty()){
-                return true;
+        Map<Character,Character> map = new HashMap();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+        Stack<Character> stack = new Stack();
+        for (int i = 0; i <s.length() ; i++) {
+            if (s.charAt(i) == ' '){
+                continue;
+            }else if(stack.empty() || stack.peek() != map.get(s.charAt(i))){
+                stack.push(s.charAt(i));
+            }else {
+                stack.pop();
             }
-            stack.push()
+        }
+        if (stack.isEmpty()){
+            return true;
+        }else {
+            return false;
         }
     }
 }
