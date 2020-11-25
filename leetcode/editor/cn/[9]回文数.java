@@ -25,8 +25,65 @@
 // 你能不将整数转为字符串来解决这个问题吗？ 
 //
 
+//class Solution {
+//    public boolean isPalindrome(int x) {
+//        String str = x + "";
+//        //将字符串只需要遍历字符串一半，
+//        for (int i = 0; i < str.length() / 2; i++) {
+//            //判断对应元素是否相等
+//            if (str.charAt(i) != str.charAt(str.length() - i - 1)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//}
+
+//class Solution {
+//    public boolean isPalindrome(int x) {
+//        String reverse = new StringBuffer(x + "").reverse().toString();
+//        return reverse.equals(x + "");
+//    }
+//}
+//class Solution {
+//    public boolean isPalindrome(int x) {
+//        if (x < 0) {
+//            return false;
+//        }
+//        int div = 1;
+//        //找到最大位数
+//        while (x / div >= 10) {
+//            div *= 10;
+//        }
+//        while (x > 0) {
+//            int left = x / div;
+//            int right = x % 10;
+//            if (left != right) {
+//                return false;
+//            }
+//            //掐头去尾
+//            x = (x % div) / 10;
+//            div /= 100;
+//        }
+//        return true;
+//    }
+//}
 class Solution {
     public boolean isPalindrome(int x) {
-        
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+        int reverseNum = 0;
+        // 取出后半段数字进行翻转
+        while (x > reverseNum) {
+            reverseNum = reverseNum * 10 + x % 10;
+            x /= 10;
+        }
+        /**
+         * 如果是偶数的话，revertNum 和 x 相等；
+         * 如果是奇数的话，最中间的数字就在revertNum 的最低位上，将它除以 10 以后应该和 x 相等。
+         *
+         */
+        return reverseNum == x || x == reverseNum / 10;
     }
 }

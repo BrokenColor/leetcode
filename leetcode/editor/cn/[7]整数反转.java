@@ -25,6 +25,12 @@
 
 class Solution {
     public int reverse(int x) {
-        
+        long result = 0;
+        while (x != 0) {
+            result = result * 10 + x % 10;
+            x = x / 10;
+        }
+        //根据int长度限制判断是否超出长度
+        return (int) result == result ? (int) result : 0;
     }
 }
