@@ -24,6 +24,30 @@
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode listNode = new ListNode();
-        l1.val + l2.val
+        ListNode p = l1, q = l2, cur = listNode;
+        //carry 表示进位数
+        int carry = 0;
+        while (p != null || q != null){
+            //去除节点的值
+            int x = (p == null)? 0 : p.val;
+            int y = (q == null)? 0 : q.val;
+
+            //进位 + l1的值 + l2的值
+            int sum = carry + x + y;
+            //计算 进位
+            carry = sum / 10;
+            //当前节点指向新创建的节点
+            cur.next = new ListNode(sum % 10);
+            //修改指向当前节点的指针
+            cur = cur.next;
+            //节点后移一位
+            if(p != null) p = p.next;
+            if(q != null) q = q.next;
+        }
+        if (carry > 0){//如果还有进位未处理，添加节点
+            cur.next = new ListNode(carry);
+        }
+        //返回第二个节点，因为第一个节点为0，
+        return listNode.next;
     }
 }

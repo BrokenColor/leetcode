@@ -24,11 +24,28 @@
 // Related Topics 哈希表 双指针 字符串 Sliding Window
 
 
+import java.util.HashSet;
+import java.util.Set;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-
+        Set<Character> set = new HashSet();
+        int n = s.length();
+        int ans = 0;
+        int rk = -1;//定义一个右指针
+        for (int i = 0; i < n; i++) {
+            if (i != 0) {
+                //删除左指针向的重复元素
+                set.remove(s.charAt(i - 1));
+            }
+            while (rk + 1 < n && !set.contains(s.charAt(rk + 1))) {
+                //不同元素添加到set中rk继续往前走
+                set.add(s.charAt(++rk));
+            }
+            ans = Math.max(ans, rk - i + 1);
+        }
+        return ans;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
